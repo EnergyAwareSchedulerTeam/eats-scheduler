@@ -1,0 +1,36 @@
+#ifndef EATS_H
+#define EATS_H
+
+#include <linux/types.h>
+
+#define EATS_SHORT_THRESH_NS   15000000ULL
+#define EATS_LONG_THRESH_NS    50000000ULL
+
+struct eats_task_info {
+    u64 predicted_ns;
+    u64 last_burst_ns;
+    u64 start_time_ns;
+    int assigned_core;
+    int mispredictions;
+};
+
+#endif
+#ifndef EATS_H
+#define EATS_H
+
+#include <linux/types.h>
+
+/* Constants for our "Big.LITTLE" logic */
+#define EATS_SHORT_THRESH_NS   20000000ULL  /* 20ms: Tasks shorter than this go to LITTLE */
+#define LITTLE_CORE_MASK       0x0F         /* CPUs 0-3 (LITTLE) */
+#define BIG_CORE_MASK          0xF0         /* CPUs 4-7 (Big) */
+
+/* The 'History Card' for a task */
+struct eats_task_info {
+    u64 predicted_ns;     /* Our guess for the next run */
+    u64 last_burst_ns;    /* How long it actually ran last time */
+    u64 start_time_ns;    /* Timestamp when it started running */
+    int assigned_type;    /* 0 for LITTLE, 1 for Big */
+};
+
+#endif

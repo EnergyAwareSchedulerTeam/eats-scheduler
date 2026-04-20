@@ -1,0 +1,1 @@
+savedcmd_eats.ko := x86_64-linux-gnu-ld -r -m elf_x86_64 -z noexecstack --no-warn-rwx-segments --build-id=sha1  -T /usr/src/linux-headers-6.18.12+kali-amd64/arch/x86/module.lds -o eats.ko eats.o eats.mod.o .module-common.o
