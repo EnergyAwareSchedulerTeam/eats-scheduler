@@ -1080,11 +1080,9 @@ deps_eats.o := \
     $(wildcard include/config/UNWINDER_ORC) \
   /usr/src/linux-headers-6.18.12+kali-common/include/asm-generic/module.h \
     $(wildcard include/config/HAVE_MOD_ARCH_SPECIFIC) \
-  /usr/src/linux-headers-6.18.12+kali-common/include/linux/kthread.h \
-  /usr/src/linux-headers-6.18.12+kali-common/include/linux/delay.h \
-  /usr/src/linux-headers-6.18.12+kali-common/arch/x86/include/asm/delay.h \
-  /usr/src/linux-headers-6.18.12+kali-common/include/asm-generic/delay.h \
   /usr/src/linux-headers-6.18.12+kali-common/include/linux/hashtable.h \
+  /usr/src/linux-headers-6.18.12+kali-common/include/linux/proc_fs.h \
+    $(wildcard include/config/PROC_PID_ARCH_STATUS) \
   eats.h \
 
 eats.o: $(deps_eats.o)

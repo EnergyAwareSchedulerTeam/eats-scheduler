@@ -3,30 +3,36 @@
 
 #include <linux/types.h>
 
-/* Constants for our "Big.LITTLE" logic */
-#define EATS_SHORT_THRESH_NS   25000000ULL  /* 25ms threshold */
+/* ── Thresholds ────────────────────────────────────────────── */
+#define EATS_LITTLE_THRESH_NS  20000000ULL   /* 20ms */
+#define EATS_BIG_THRESH_NS     50000000ULL   /* 50ms */
 
-/* The WPBA History Card for a task */
+/* ── WPBA weights ──────────────────────────────────────────── */
+#define WPBA_W1_INIT  40
+#define WPBA_W2_INIT  35
+#define WPBA_W3_INIT  25
+#define WPBA_W_MAX    90
+#define WPBA_W_MIN    10
+
+/* ── FNN config ────────────────────────────────────────────── */
+#define FNN_INPUTS   3
+#define FNN_HIDDEN   16
+#define FNN_OUTPUTS  1
+#define FNN_CONFIDENCE_MIN  0ULL        /* 0ns  */
+#define FNN_CONFIDENCE_MAX  5000000000ULL  /* 5s  */
+
+/* ── Per-process record ────────────────────────────────────── */
 struct eats_task_info {
-    u64 last_burst;        /* Last measured CPU burst */
-    u64 phase_avg;         /* Average of recent bursts (Phase detection) */
-    u64 io_ratio;          /* I/O-to-CPU ratio signal */
-    
-    /* Dynamic Weights (stored as parts of 100 for integer math) */
-    int w1;                /* Weight for last burst */
-    int w2;                /* Weight for phase average */
-    int w3;                /* Weight for IO ratio */
-    
-    u64 last_prediction;   /* The most recent WPBA output */
-    u64 predicted_ns;      /* Alias for compatibility with previous logic */
-    int error_count;       /* Tracking mispredictions for weight adjustment */
-};
-
-/* The wrapper entry for the hashtable */
-struct eats_entry {
-    pid_t pid;
-    struct eats_task_info info;
-    struct hlist_node node;
+    u64 predicted_ns;
+    u64 last_burst_ns;
+    u64 start_time_ns;
+    u64 phase_avg_ns;
+    int burst_count;
+    int assigned_core;    /* 0=LITTLE 1=BIG -1=ANY */
+    int mispredictions;
+    int w1, w2, w3;      /* WPBA weights */
+    int io_ratio;         /* 0-100 */
+    bool fnn_used;        /* was FNN used last prediction? */
 };
 
 #endif
