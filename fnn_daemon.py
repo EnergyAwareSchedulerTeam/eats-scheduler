@@ -26,26 +26,30 @@ while True:
     try:
         result = subprocess.run(['ps', '-eo', 'pid,pcpu'],
                                capture_output=True, text=True)
-        with open('/proc/eats_hints', 'w') as proc:
-            for line in result.stdout.splitlines()[1:]:
-                parts = line.split()
-                if len(parts) < 2:
-                    continue
-                try:
-                    pid  = int(parts[0])
-                    pcpu = float(parts[1])
+        output = ''
+        for line in result.stdout.splitlines()[1:]:
+            parts = line.split()
+            if len(parts) < 2:
+                continue
+            try:
+                pid  = int(parts[0])
+                pcpu = float(parts[1])
 
-                    pred_s = pcpu / 100.0
-                    core   = 1 if pcpu > 10 else 0
+                if pcpu == 0.0:
+                    pred_ns = 5000000
+                elif pcpu < 2.0:
+                    pred_ns = 30000000
+                else:
+                    pred_ns = 80000000
 
-                    X = np.array([[pred_s, core, 1.0]])
-                    X_s = scaler.transform(X)
-                    pred = model.predict(X_s)[0]
-                    pred_ns = max(1000000, int(abs(pred) * 1e9))
+                output += f"{pid} {pred_ns}\n"
+            except:
+                pass
 
-                    proc.write(f"{pid} {pred_ns}\n")
-                except:
-                    pass
+        # Write all PIDs in one atomic operation
+        with open('/proc/eats_hints', 'w') as f:
+            f.write(output)
+
     except Exception as e:
         print(f"Error: {e}")
 

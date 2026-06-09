@@ -27,7 +27,7 @@ X_train_s = scaler.fit_transform(X_train)
 X_test_s  = scaler.transform(X_test)
 
 model = MLPRegressor(
-    hidden_layer_sizes=(32, 16),
+    hidden_layer_sizes=(16,),
     max_iter=2000,
     random_state=42,
     learning_rate='adaptive'
@@ -36,6 +36,10 @@ model.fit(X_train_s, y_train)
 
 score = model.score(X_test_s, y_test)
 print(f"R² score: {score:.4f}")
+
+# Verify output shape
+test_pred = model.predict(X_test_s[:1])
+print(f"Output shape: {test_pred.shape}")
 
 weights = {
     'scaler_mean':    scaler.mean_.tolist(),

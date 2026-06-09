@@ -5,7 +5,7 @@
 
 /* ── Thresholds ────────────────────────────────────────────── */
 #define EATS_LITTLE_THRESH_NS  20000000ULL   /* 20ms */
-#define EATS_BIG_THRESH_NS     50000000ULL   /* 50ms */
+#define EATS_BIG_THRESH_NS     35000000ULL   /* 50ms */
 
 /* ── WPBA weights ──────────────────────────────────────────── */
 #define WPBA_W1_INIT  40
