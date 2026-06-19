@@ -73,14 +73,15 @@ Python FNN Daemon (runs every 1s)
 - **Strongly recommended:** run inside a VirtualBox VM, not on bare metal — kernel module bugs can crash the system
 
 ### Software
-| Tool                                                 | Purpose | 
-| Linux kernel 6.x (tested on Kali 6.18.12) | -------- Target OS |
-| Matching `linux-headers` package | ----------------- Required to build kernel modules |
-| GCC + `build-essential` | -------------------------- Compiles the kernel module |
-| Python 3.10+ |-------------------------------------- Runs the FNN daemon, training, and plotting scripts |
-| `scikit-learn`, `numpy` | -------------------------- Neural network training and inference |
-| `matplotlib` | ------------------------------------- Results visualization |
-| `stress-ng` (optional) | --------------------------- For testing BIG-core assignment under heavy load |
+| Tool | Purpose |
+|---|---|
+| Linux kernel 6.x (tested on Kali 6.18.12) | Target OS |
+| Matching `linux-headers` package | Required to build kernel modules |
+| GCC + `build-essential` | Compiles the kernel module |
+| Python 3.10+ | Runs the FNN daemon, training, and plotting scripts |
+| `scikit-learn`, `numpy` | Neural network training and inference |
+| `matplotlib` | Results visualization |
+| `stress-ng` (optional) | For testing BIG-core assignment under heavy load |
 
 ---
 
