@@ -197,14 +197,15 @@ eats/
 
 On a 34-minute test session (simulated 4-core heterogeneous environment, Kali Linux 6.18):
 
-| Metric |                                     Value |
-| Total scheduling decisions | --------------- 1,709 |
-| FNN-driven decisions |---------------------- 1,599 (93.6%) |
-| WPBA fallback decisions |------------------- 110 (6.4%) |
-| Tasks routed to LITTLE cores |-------------- 1,521 (89.0%) |
-| Tasks routed to BIG cores |----------------- 30 (1.8%) |
-| **Energy saved vs naive baseline** |-------- **71.2%** |
-| FNN model accuracy (R²) |-------------------- 0.9999 |
+| Metric | Value |
+|---|---|
+| Total scheduling decisions | 1,709 |
+| FNN-driven decisions | 1,599 (93.6%) |
+| WPBA fallback decisions | 110 (6.4%) |
+| Tasks routed to LITTLE cores | 1,521 (89.0%) |
+| Tasks routed to BIG cores | 30 (1.8%) |
+| **Energy saved vs naive baseline** | **71.2%** |
+| FNN model accuracy (R²) | 0.9999 |
 
 See `eats_results.png` after running the system for the full visual breakdown.
 
